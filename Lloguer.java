@@ -1,15 +1,18 @@
+import java.util.Date;
+
 public class Lloguer{
 
-    private String data;
+    private Date data;
     private int dias;
     private Vehicle vehicle;
 
-    public Lloguer(int dias,String data){
+    public Lloguer(Date data, int dias, Vehicle vehicle){
         this.data = data;
         this.dias = dias;
+        this.vehicle = vehicle;
     }
 
-    public String getData() {
+    public Date getData() {
         return data;
     }
 
@@ -21,7 +24,7 @@ public class Lloguer{
         return vehicle;
     }
 
-    public void setData(String data) {
+    public void setData(Date data) {
         this.data = data;
     }
 

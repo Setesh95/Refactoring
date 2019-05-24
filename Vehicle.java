@@ -1,9 +1,12 @@
 public class Vehicle{
 	private String modelo;
 	private String marca;
-	private String categoria;
+	private int categoria;
+	public static int BASIC=1;
+	public int categoria2;
+	public int categoria3;
 
-	public Vehicle(String modelo,String marca,String categoria){
+	public Vehicle(String modelo,String marca,int categoria){
 		this.modelo = modelo;
 		this.marca = marca;
 		this.categoria = categoria;
@@ -17,7 +20,7 @@ public class Vehicle{
 		return this.marca;
 	}
 
-	public String getCategoria(){
+	public int getCategoria(){
 		return this.categoria;
 	}
 	
@@ -29,7 +32,11 @@ public class Vehicle{
 		this.marca = marca;
 	}
 
-	public void setCategoria(String categoria){
+	public void setCategoria(int categoria){
 		this.categoria = categoria;
+	}
+
+	public String toString(){
+		return this.marca+" "+this.modelo;
 	}
 }

@@ -14,14 +14,19 @@ public class Client {
     }
 
     public String getNif()     { return nif;     }
+
     public String getNom()     { return nom;     }
+
     public String getTelefon() { return telefon; }
 
     public void setNif(String nif) { this.nif = nif; }
+
     public void setNom(String nom) { this.nom = nom; }
+
     public void setTelefon(String telefon) {
         this.telefon = telefon;
     }
+
     public void afegeix(Lloguer lloguer) {
         if (! lloguers.contains(lloguer) ) {
             lloguers.add(lloguer);
@@ -34,6 +39,15 @@ public class Client {
     }
     public boolean conte(Lloguer lloguer) {
         return lloguers.contains(lloguer);
+    }
+
+    public int numLloguers(){
+        return this.lloguers.size();
+    }
+
+    public Lloguer test(int i){
+        Lloguer lloguer = this.lloguers.get(i);
+        return lloguer;
     }
 
     public String informe() {

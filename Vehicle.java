@@ -2,9 +2,9 @@ public class Vehicle{
 	private String modelo;
 	private String marca;
 	private int categoria;
-	public static int BASIC=1;
-	public int categoria2;
-	public int categoria3;
+	public static final int BASIC=1;
+	public static final int GENERAL=2;
+	public static final int LUXE=3;
 
 	public Vehicle(String modelo,String marca,int categoria){
 		this.modelo = modelo;

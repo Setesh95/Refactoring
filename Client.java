@@ -51,7 +51,52 @@ public class Client {
     }
 
     public String informe() {
-        // XXX: de moment buit
-        return null;
+    	double total = 0;
+        int bonificacions = 0;
+        String resultat = "Informe de lloguers del client " +
+                getNom() +
+                " (" + getNif() + ")\n";
+        for (Lloguer lloguer: lloguers) {
+            double quantitat = 0;
+            switch (lloguer.getVehicle().getCategoria()) {
+                case Vehicle.BASIC:
+                    quantitat += 3;
+                    if (lloguer.getDias() > 3) {
+                        quantitat += (lloguer.getDias() - 3) * 1.5;
+                    }
+                    break;
+                case Vehicle.GENERAL:
+                    quantitat += 4;
+                    if (lloguer.getDias() > 2) {
+                        quantitat += (lloguer.getDias() - 2) * 2.5;
+                    }
+                    break;
+                case Vehicle.LUXE:
+                    quantitat += lloguer.getDias() * 6;
+                    break;
+            }
+
+            // afegeix lloguers freqüents
+            bonificacions ++;
+
+            // afegeix bonificació per dos dies de lloguer de Luxe
+            if (lloguer.getVehicle().getCategoria() == Vehicle.LUXE &&
+                    lloguer.getDias()>1 ) {
+                bonificacions ++;
+            }
+
+            // composa els resultats d'aquest lloguer
+            resultat += "\t" +
+                    lloguer.getVehicle().getMarca() +
+                    " " +
+                    lloguer.getVehicle().getModelo() + ": " +
+                    (quantitat * 30) + "€" + "\n";
+            total += quantitat * 30;
+        }
+
+        // afegeix informació final
+        resultat += "Import a pagar: " + total + "€\n" +
+                "Punts guanyats: " + bonificacions + "\n";
+        return resultat;
     }
 }

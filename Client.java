@@ -45,17 +45,18 @@ public class Client {
         return this.lloguers.size();
     }
 
-    public Lloguer test(int i){
+    public Lloguer LloguerDeterminat(int i){
         Lloguer lloguer = this.lloguers.get(i);
         return lloguer;
     }
 
     public String informe() {
-    	double total = 0;
+        double total = 0;
         int bonificacions = 0;
         String resultat = "Informe de lloguers del client " +
                 getNom() +
                 " (" + getNif() + ")\n";
+
         for (Lloguer lloguer: lloguers) {
             double quantitat = 0;
             switch (lloguer.getVehicle().getCategoria()) {

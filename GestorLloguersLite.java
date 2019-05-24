@@ -22,6 +22,7 @@ public class GestorLloguersLite {
 
         yo.afegeix(lloguerBasic);
         infoClient(yo);
+        System.out.println(yo.informe());
     }
     // metodo para imprimir toda la informacion de un cliente
     public static void infoClient(Client client){
@@ -31,7 +32,7 @@ public class GestorLloguersLite {
         System.out.println("telefon: " +client.getTelefon());
         System.out.println("Lloguers: "+client.numLloguers());
         for(int i=0;i<client.numLloguers();i++){
-            Lloguer lloguer = client.test(i);
+            Lloguer lloguer = client.LloguerDeterminat(i);
             System.out.println((i+1)+". vehicle: "+lloguer.getVehicle().toString());
             System.out.println("data d'inici: "+dateFormat.format(lloguer.getData()));
             System.out.println("dies llogats: "+lloguer.getDias());

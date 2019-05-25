@@ -12,7 +12,7 @@ public class Vehicle{
 		this.categoria = categoria;
 	}
 	
-	public String getModelo(){
+	public String getModel(){
 		return this.modelo;
 	}
 

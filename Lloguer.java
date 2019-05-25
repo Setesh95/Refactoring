@@ -16,7 +16,7 @@ public class Lloguer{
         return data;
     }
 
-    public int getDias() {
+    public int getDies() {
         return dias;
     }
 
@@ -28,7 +28,7 @@ public class Lloguer{
         this.data = data;
     }
 
-    public void setDias(int dias) {
+    public void setDies(int dias) {
         this.dias = dias;
     }
 

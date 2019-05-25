@@ -5,7 +5,6 @@ public class Client {
     private String nom;
     private String telefon;
     private Vector<Lloguer> lloguers;
-    private int bonificacions;
 
     public Client(String nif, String nom, String telefon) {
         this.nif = nif;
@@ -54,67 +53,114 @@ public class Client {
     public String informe() {
         double total = 0;
         int bonificacions = 0;
-        String resultat="";
-        String alquiler="";
-        String coche;
-        String totalEtiq;
-
-        String cliente = "Informe de lloguers del client " +
+        String resultat = "Informe de lloguers del client " +
                 getNom() +
-                " (" + getNif() + ")";
-
+                " (" + getNif() + ")\n";
         for (Lloguer lloguer: lloguers) {
-            double quantitat = 0;
-
-            switch (lloguer.getVehicle().getCategoria()) {
-                case Vehicle.BASIC:
-                    quantitat += 3;
-                    if (lloguer.getDias() > 3) {
-                        quantitat += (lloguer.getDias() - 3) * 1.5;
-                    }
-                    break;
-                case Vehicle.GENERAL:
-                    quantitat += 4;
-                    if (lloguer.getDias() > 2) {
-                        quantitat += (lloguer.getDias() - 2) * 2.5;
-                    }
-                    break;
-                case Vehicle.LUXE:
-                    quantitat += lloguer.getDias() * 6;
-                    break;
-            }
 
             // afegeix lloguers freqüents
-            bonificacions++;
+            bonificacions ++;
 
             // afegeix bonificació per dos dies de lloguer de Luxe
             if (lloguer.getVehicle().getCategoria() == Vehicle.LUXE &&
-                    lloguer.getDias()>1 ) {
-                bonificacions++;
+                    lloguer.getDies()>1 ) {
+                bonificacions ++;
             }
 
             // composa els resultats d'aquest lloguer
-            coche = "\t" +
+            resultat += "\t" +
                     lloguer.getVehicle().getMarca() +
                     " " +
-                    lloguer.getVehicle().getModelo() + ": " +
-                    (quantitat * 30) + "€";
+                    lloguer.getVehicle().getModel() + ": " +
+                    quantitat(lloguer) + "€" + "\n";
+            total += quantitat(lloguer);
+        }
 
-            coche = "<p>"+coche+"</p>\n"; //Aqui definimos las etiquetas de todos los alquileres
+        // afegeix informació final
+        resultat += "Import a pagar: " + total + "€\n" +
+                "Punts guanyats: " + bonificacions + "\n";
+        return resultat;
+    }
 
-            alquiler += coche;
+    public double quantitat(Lloguer lloguer){
+        double quantitat=0;
 
-            total += quantitat * 30;
+        double multiplicador=30; //multiplicador para el precio en €
+
+        double basic = 1.5; //Oferta basic
+        double general = 2.5; //Oferta general
+        double luxe = 6;
+
+        switch (lloguer.getVehicle().getCategoria()) {
+            case Vehicle.BASIC:
+                quantitat += 3;
+                if (lloguer.getDies() > 3) {
+                    quantitat += (lloguer.getDies() - 3) * basic;
+                }
+                break;
+            case Vehicle.GENERAL:
+                quantitat += 4;
+                if (lloguer.getDies() > 2) {
+                    quantitat += (lloguer.getDies() - 2) * general;
+                }
+                break;
+            case Vehicle.LUXE:
+                quantitat += lloguer.getDies() * luxe;
+                break;
+        }
+        quantitat=quantitat*multiplicador;
+        return quantitat;
+    }
+
+    public String informeHTML() {
+        double total = 0;
+        int bonificacions = 0;
+        String cabecera;
+        String lloguerCoche;
+        String alquilerTotal = "";
+        String resultat;
+        cabecera = "Informe de lloguers del client " +
+                getNom() +
+                " (" + getNif() + ")";
+        for (Lloguer lloguer: lloguers) {
+
+            // afegeix lloguers freqüents
+            bonificacions ++;
+
+            // afegeix bonificació per dos dies de lloguer de Luxe
+            if (lloguer.getVehicle().getCategoria() == Vehicle.LUXE &&
+                    lloguer.getDies()>1 ) {
+                bonificacions ++;
+            }
+
+            // composa els resultats d'aquest lloguer
+            lloguerCoche = "\t\t<td>"+lloguer.getVehicle().getMarca()+"</td>\n";
+            lloguerCoche += "\t\t<td>"+lloguer.getVehicle().getModel() + "</td>\n";
+            lloguerCoche += "\t\t<td>"+quantitat(lloguer) + "€"+"</td>\n";
+
+            lloguerCoche = "\t<tr>\n"+lloguerCoche+"\t</tr>\n";
+
+            alquilerTotal += lloguerCoche;
+
+            total += quantitat(lloguer);
         }
 
         // afegeix informació final
 
-        cliente = "<h1>"+cliente+"</h1>\n";  //Aqui podemos definir las etiquetas de la primera linea
-
-        totalEtiq = "<h3>Import a pagar: " + total + "€</h3>\n" + //Etiquetas del total
-                "<h3>Punts guanyats: " + bonificacions + "</h3>\n";//Etiquetas de punts guanyats
-
-        resultat = cliente+alquiler+totalEtiq;
+        cabecera = "<h2>"+cabecera+"</h2>\n";
+        String tabla = "<table>\n"+
+                        "   <tr>\n"+
+                        "       <td>Marca</td>\n"+
+                        "       <td>Modelo</td>\n"+
+                        "       <td>Cantidad</td>\n"+
+                        "   </tr>\n";
+        String totalEuros = "   <tr>\n"+
+                            "       <td>Total</td>\n"+
+                            "       <td></td>\n"+
+                            "       <td>"+total+"€</td>\n"+
+                            "   </tr>\n"+
+                            "</table>";
+        resultat = cabecera+tabla+alquilerTotal+totalEuros;
 
         return resultat;
     }

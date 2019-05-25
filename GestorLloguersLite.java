@@ -15,15 +15,14 @@ public class GestorLloguersLite {
         // demostració de construccuó d'un lloguer amb una data
         SimpleDateFormat dateFormat = new SimpleDateFormat("d/M/yyyy");
         Date date = dateFormat.parse("2/8/2013");
-        Lloguer lloguerBasic = new Lloguer(date, 9, vehicleBasic);
-
-        // demostració de formatat d'una data
-        //System.out.println(dateFormat.format(lloguerBasic.getData()));
+        Lloguer lloguerBasic = new Lloguer(date, 4, vehicleBasic);
 
         yo.afegeix(lloguerBasic);
         infoClient(yo);
         System.out.println(yo.informe());
+        System.out.println(yo.informeHTML());
     }
+
     // metodo para imprimir toda la informacion de un cliente
     public static void infoClient(Client client){
         SimpleDateFormat dateFormat = new SimpleDateFormat("d/M/yyyy");
@@ -35,7 +34,7 @@ public class GestorLloguersLite {
             Lloguer lloguer = client.LloguerDeterminat(i);
             System.out.println((i+1)+". vehicle: "+lloguer.getVehicle().toString());
             System.out.println("data d'inici: "+dateFormat.format(lloguer.getData()));
-            System.out.println("dies llogats: "+lloguer.getDias());
+            System.out.println("dies llogats: "+lloguer.getDies());
         }
     }
 }

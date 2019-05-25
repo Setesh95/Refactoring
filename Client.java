@@ -72,44 +72,14 @@ public class Client {
                     lloguer.getVehicle().getMarca() +
                     " " +
                     lloguer.getVehicle().getModel() + ": " +
-                    quantitat(lloguer) + "€" + "\n";
-            total += quantitat(lloguer);
+                    lloguer.quantitat() + "€" + "\n";
+            total += lloguer.quantitat();
         }
 
         // afegeix informació final
         resultat += "Import a pagar: " + total + "€\n" +
                 "Punts guanyats: " + bonificacions + "\n";
         return resultat;
-    }
-
-    public double quantitat(Lloguer lloguer){
-        double quantitat=0;
-
-        double multiplicador=30; //multiplicador para el precio en €
-
-        double basic = 1.5; //Oferta basic
-        double general = 2.5; //Oferta general
-        double luxe = 6;
-
-        switch (lloguer.getVehicle().getCategoria()) {
-            case Vehicle.BASIC:
-                quantitat += 3;
-                if (lloguer.getDies() > 3) {
-                    quantitat += (lloguer.getDies() - 3) * basic;
-                }
-                break;
-            case Vehicle.GENERAL:
-                quantitat += 4;
-                if (lloguer.getDies() > 2) {
-                    quantitat += (lloguer.getDies() - 2) * general;
-                }
-                break;
-            case Vehicle.LUXE:
-                quantitat += lloguer.getDies() * luxe;
-                break;
-        }
-        quantitat=quantitat*multiplicador;
-        return quantitat;
     }
 
     public String informeHTML() {
@@ -136,13 +106,13 @@ public class Client {
             // composa els resultats d'aquest lloguer
             lloguerCoche = "\t\t<td>"+lloguer.getVehicle().getMarca()+"</td>\n";
             lloguerCoche += "\t\t<td>"+lloguer.getVehicle().getModel() + "</td>\n";
-            lloguerCoche += "\t\t<td>"+quantitat(lloguer) + "€"+"</td>\n";
+            lloguerCoche += "\t\t<td>"+lloguer.quantitat() + "€"+"</td>\n";
 
             lloguerCoche = "\t<tr>\n"+lloguerCoche+"\t</tr>\n";
 
             alquilerTotal += lloguerCoche;
 
-            total += quantitat(lloguer);
+            total += lloguer.quantitat();
         }
 
         // afegeix informació final

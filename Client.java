@@ -65,7 +65,7 @@ public class Client {
                 " (" + getNif() + ")\n";
         return cabecera;
     }
-    
+
     public String detalles(){
         String detalles = "";
         for (Lloguer lloguer: lloguers) {

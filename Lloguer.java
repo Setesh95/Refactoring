@@ -1,6 +1,12 @@
 import java.util.Date;
 
 public class Lloguer{
+    private static final double EUROS_PER_UNITAT_COST = 30;
+    private static final double basic = 1.5;
+    private static final double general = 2.5;
+    private static final int luxe = 6;
+    private static final int promoBasic = 3;
+    private static final int promoGeneral = 2;
 
     private Date data;
     private int dias;
@@ -39,30 +45,24 @@ public class Lloguer{
     public double quantitat(){
         double quantitat=0;
 
-        double multiplicador=30; //multiplicador para el precio en €
-
-        double basic = 1.5; //Oferta basic
-        double general = 2.5; //Oferta general
-        double luxe = 6;
-
         switch (getVehicle().getCategoria()) {
             case Vehicle.BASIC:
-                quantitat += 3;
-                if (getDies() > 3) {
-                    quantitat += (getDies() - 3) * basic;
+                quantitat += promoBasic;
+                if (getDies() > promoBasic) {
+                    quantitat += (getDies() - promoBasic) * basic;
                 }
                 break;
             case Vehicle.GENERAL:
                 quantitat += 4;
-                if (getDies() > 2) {
-                    quantitat += (getDies() - 2) * general;
+                if (getDies() > promoGeneral) {
+                    quantitat += (getDies() - promoGeneral) * general;
                 }
                 break;
             case Vehicle.LUXE:
                 quantitat += getDies() * luxe;
                 break;
         }
-        quantitat=quantitat*multiplicador;
+        quantitat=quantitat*EUROS_PER_UNITAT_COST;
         return quantitat;
     }
 

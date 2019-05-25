@@ -54,23 +54,36 @@ public class Client {
 
     public String informe() {
 
-        String resultat = "Informe de lloguers del client " +
+        return cabecera()+
+                detalles()+
+                infoFinal();
+    }
+
+    public String cabecera(){
+        String cabecera = "Informe de lloguers del client " +
                 getNom() +
                 " (" + getNif() + ")\n";
+        return cabecera;
+    }
+    
+    public String detalles(){
+        String detalles = "";
         for (Lloguer lloguer: lloguers) {
 
             // composa els resultats d'aquest lloguer
-            resultat += "\t" +
+            detalles += "\t" +
                     lloguer.getVehicle().getMarca() +
                     " " +
                     lloguer.getVehicle().getModel() + ": " +
                     lloguer.quantitat() + "€" + "\n";
         }
+        return detalles;
+    }
 
-        // afegeix informació final
-        resultat += "Import a pagar: " + importTotal() + "€\n" +
+    public String infoFinal(){
+        String infoFinal = "Import a pagar: " + importTotal() + "€\n" +
                 "Punts guanyats: " + bonificacionsTotals() + "\n";
-        return resultat;
+        return infoFinal;
     }
 
     public String informeHTML() {

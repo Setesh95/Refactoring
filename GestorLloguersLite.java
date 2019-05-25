@@ -15,7 +15,7 @@ public class GestorLloguersLite {
         // demostració de construccuó d'un lloguer amb una data
         SimpleDateFormat dateFormat = new SimpleDateFormat("d/M/yyyy");
         Date date = dateFormat.parse("2/8/2013");
-        Lloguer lloguerBasic = new Lloguer(date, 2, vehicleBasic);
+        Lloguer lloguerBasic = new Lloguer(date, 9, vehicleBasic);
 
         // demostració de formatat d'una data
         //System.out.println(dateFormat.format(lloguerBasic.getData()));

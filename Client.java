@@ -5,6 +5,7 @@ public class Client {
     private String nom;
     private String telefon;
     private Vector<Lloguer> lloguers;
+    private int bonificacions;
 
     public Client(String nif, String nom, String telefon) {
         this.nif = nif;
@@ -53,12 +54,18 @@ public class Client {
     public String informe() {
         double total = 0;
         int bonificacions = 0;
-        String resultat = "Informe de lloguers del client " +
+        String resultat="";
+        String alquiler="";
+        String coche;
+        String totalEtiq;
+
+        String cliente = "Informe de lloguers del client " +
                 getNom() +
-                " (" + getNif() + ")\n";
+                " (" + getNif() + ")";
 
         for (Lloguer lloguer: lloguers) {
             double quantitat = 0;
+
             switch (lloguer.getVehicle().getCategoria()) {
                 case Vehicle.BASIC:
                     quantitat += 3;
@@ -78,26 +85,37 @@ public class Client {
             }
 
             // afegeix lloguers freqüents
-            bonificacions ++;
+            bonificacions++;
 
             // afegeix bonificació per dos dies de lloguer de Luxe
             if (lloguer.getVehicle().getCategoria() == Vehicle.LUXE &&
                     lloguer.getDias()>1 ) {
-                bonificacions ++;
+                bonificacions++;
             }
 
             // composa els resultats d'aquest lloguer
-            resultat += "\t" +
+            coche = "\t" +
                     lloguer.getVehicle().getMarca() +
                     " " +
                     lloguer.getVehicle().getModelo() + ": " +
-                    (quantitat * 30) + "€" + "\n";
+                    (quantitat * 30) + "€";
+
+            coche = "<p>"+coche+"</p>\n"; //Aqui definimos las etiquetas de todos los alquileres
+
+            alquiler += coche;
+
             total += quantitat * 30;
         }
 
         // afegeix informació final
-        resultat += "Import a pagar: " + total + "€\n" +
-                "Punts guanyats: " + bonificacions + "\n";
+
+        cliente = "<h1>"+cliente+"</h1>\n";  //Aqui podemos definir las etiquetas de la primera linea
+
+        totalEtiq = "<h3>Import a pagar: " + total + "€</h3>\n" + //Etiquetas del total
+                "<h3>Punts guanyats: " + bonificacions + "</h3>\n";//Etiquetas de punts guanyats
+
+        resultat = cliente+alquiler+totalEtiq;
+
         return resultat;
     }
 }

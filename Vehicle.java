@@ -32,10 +32,6 @@ public class Vehicle{
 		this.marca = marca;
 	}
 
-	public void setCategoria(int categoria){
-		this.categoria = categoria;
-	}
-
 	public String toString(){
 		return this.marca+" "+this.modelo;
 	}

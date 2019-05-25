@@ -32,11 +32,13 @@ public class Client {
             lloguers.add(lloguer);
         }
     }
+
     public void elimina(Lloguer lloguer) {
         if (lloguers.contains(lloguer) ) {
             lloguers.remove(lloguer);
         }
     }
+
     public boolean conte(Lloguer lloguer) {
         return lloguers.contains(lloguer);
     }
@@ -58,14 +60,7 @@ public class Client {
                 " (" + getNif() + ")\n";
         for (Lloguer lloguer: lloguers) {
 
-            // afegeix lloguers freqüents
-            bonificacions ++;
-
-            // afegeix bonificació per dos dies de lloguer de Luxe
-            if (lloguer.getVehicle().getCategoria() == Vehicle.LUXE &&
-                    lloguer.getDies()>1 ) {
-                bonificacions ++;
-            }
+            bonificacions += bonificacionsDeLloguer(lloguer);
 
             // composa els resultats d'aquest lloguer
             resultat += "\t" +
@@ -133,5 +128,17 @@ public class Client {
         resultat = cabecera+tabla+alquilerTotal+totalEuros;
 
         return resultat;
+    }
+
+    public int bonificacionsDeLloguer(Lloguer lloguer){
+        int bonificacions=0;
+        bonificacions ++;
+
+        // afegeix bonificació per dos dies de lloguer de Luxe
+        if (lloguer.getVehicle().getCategoria() == Vehicle.LUXE &&
+                lloguer.getDies()>1 ) {
+            bonificacions ++;
+        }
+        return bonificacions;
     }
 }

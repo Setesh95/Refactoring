@@ -54,8 +54,8 @@ public class Client {
 
     public String informe() {
 
-        return cabecera()+
-                detalles()+
+        return cabecera() +
+                detalles() +
                 infoFinal();
     }
 
@@ -75,7 +75,7 @@ public class Client {
                     lloguer.getVehicle().getMarca() +
                     " " +
                     lloguer.getVehicle().getModel() + ": " +
-                    lloguer.quantitat() + "€" + "\n";
+                    lloguer.PreuDelAlquiler() + "€" + "\n";
         }
         return detalles;
     }
@@ -87,68 +87,63 @@ public class Client {
     }
 
     public String informeHTML() {
-        double total = 0;
-        int bonificacions = 0;
-        String cabecera;
-        String lloguerCoche;
-        String alquilerTotal = "";
-        String resultat;
-        cabecera = "Informe de lloguers del client " +
-                getNom() +
-                " (" + getNif() + ")";
+
+        return cabeceraHTML() +
+                detallesHTML() +
+                infoFinalHTML();
+    }
+
+    public String cabeceraHTML(){
+        String cabecera = "";
+        cabecera += "Informe de lloguers del client " +
+               "<em>" + getNom() + "</em>" +
+                " (<strong>" + getNif() + "</strong>)";
+        cabecera = "<p>" + cabecera + "</p>\n";
+        cabecera = "<h1>Informe de lloguers</h1>\n" + cabecera;
+        return cabecera;
+    }
+
+    public String detallesHTML(){
+        String detalle;
+        String detalles = "";
         for (Lloguer lloguer: lloguers) {
 
-            // afegeix lloguers freqüents
-            bonificacions ++;
-
-            // afegeix bonificació per dos dies de lloguer de Luxe
-            if (lloguer.getVehicle().getCategoria() == Vehicle.LUXE &&
-                    lloguer.getDies()>1 ) {
-                bonificacions ++;
-            }
-
             // composa els resultats d'aquest lloguer
-            lloguerCoche = "\t\t<td>"+lloguer.getVehicle().getMarca()+"</td>\n";
-            lloguerCoche += "\t\t<td>"+lloguer.getVehicle().getModel() + "</td>\n";
-            lloguerCoche += "\t\t<td>"+lloguer.quantitat() + "€"+"</td>\n";
+            detalle = "<td>" + lloguer.getVehicle().getMarca() + "</td>";
+            detalle += "<td>" + lloguer.getVehicle().getModel() + "</td>";
+            detalle += "<td>" + lloguer.PreuDelAlquiler() + "€"+"</td>";
 
-            lloguerCoche = "\t<tr>\n"+lloguerCoche+"\t</tr>\n";
+            detalle = "\t<tr>" + detalle + "</tr>\n";
 
-            alquilerTotal += lloguerCoche;
-
-            total += lloguer.quantitat();
+            detalles += detalle;
         }
+        String tabla = "<table>\n" +
+                "\t<tr>" +
+                "<td><strong>Marca</strong></td>" +
+                "<td><strong>Modelo</strong></td>" +
+                "<td><strong>Importe</strong></td>" +
+                "</tr>\n";
 
-        // afegeix informació final
+        detalles = tabla + detalles + "</table>\n";
+        return detalles;
+    }
 
-        cabecera = "<h2>"+cabecera+"</h2>\n";
-        String tabla = "<table>\n"+
-                        "   <tr>\n"+
-                        "       <td>Marca</td>\n"+
-                        "       <td>Modelo</td>\n"+
-                        "       <td>Cantidad</td>\n"+
-                        "   </tr>\n";
-        String totalEuros = "   <tr>\n"+
-                            "       <td>Total</td>\n"+
-                            "       <td></td>\n"+
-                            "       <td>"+total+"€</td>\n"+
-                            "   </tr>\n"+
-                            "</table>";
-        resultat = cabecera+tabla+alquilerTotal+totalEuros;
-
-        return resultat;
+    public String infoFinalHTML(){
+        String infoFinal = "<p>Import a pagar: " + "<em>" + importTotal() + "€</em>" + "</p>\n" +
+                "<p>Punts guanyats: " + "<em>" + bonificacionsTotals() + "</em>" + "</p>";
+        return infoFinal;
     }
 
     public double importTotal(){
-        int total=0;
+        int total = 0;
         for(Lloguer lloguer: lloguers){
-            total += lloguer.quantitat();
+            total += lloguer.PreuDelAlquiler();
         }
         return total;
     }
 
     public int bonificacionsTotals(){
-        int bonificacions=0;
+        int bonificacions = 0;
         for(Lloguer lloguer: lloguers){
             bonificacions += lloguer.bonificacions();
         }

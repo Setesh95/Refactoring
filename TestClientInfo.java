@@ -69,8 +69,8 @@ public class TestClientInfo {
         yo.afegeix(lloguerBasic);
 
         String resultat = "Informe de lloguers del client Andrey (2345134T)\n" +
-                "\tFord Mondeo: "+(4*30)+".0€\n" +
-                "Import a pagar: "+(4*30)+".0€\n" +
+                "\tFord Mondeo: " + (4*30) + ".0€\n" +
+                "Import a pagar: " + (4*30) + ".0€\n" +
                 "Punts guanyats: 1\n";
 
         assertEquals(resultat,yo.informe());
@@ -93,8 +93,8 @@ public class TestClientInfo {
         yo.afegeix(lloguerBasic);
 
         String resultat = "Informe de lloguers del client Andrey (2345134T)\n" +
-                "\tFord Mondeo: "+(4*30)+".0€\n" +
-                "Import a pagar: "+(4*30)+".0€\n" +
+                "\tFord Mondeo: " + (4*30) + ".0€\n" +
+                "Import a pagar: " + (4*30) + ".0€\n" +
                 "Punts guanyats: 1\n";
 
         assertEquals(resultat,yo.informe());
@@ -116,8 +116,8 @@ public class TestClientInfo {
         yo.afegeix(lloguerBasic);
 
         String resultat = "Informe de lloguers del client Andrey (2345134T)\n" +
-                "\tFord Mondeo: "+((4+(3-2)*2.5)*30)+"€\n" +
-                "Import a pagar: "+((4+(3-2)*2.5)*30)+"€\n" +
+                "\tFord Mondeo: " + ((4+(3-2)*2.5)*30) + "€\n" +
+                "Import a pagar: " + ((4+(3-2)*2.5)*30) + "€\n" +
                 "Punts guanyats: 1\n";
 
         assertEquals(resultat,yo.informe());
@@ -169,6 +169,7 @@ public class TestClientInfo {
 
         assertEquals(resultat,yo.informe());
     }
+
     @Test
     public void TestVehicleLuxeMesCoches() throws ParseException{
         //Creamos el cliente
@@ -198,6 +199,7 @@ public class TestClientInfo {
 
         assertEquals(resultat,yo.informe());
     }
+
     @Test
     public void TestVehicleLuxeMesCochesYdies() throws ParseException{
         //Creamos el cliente
